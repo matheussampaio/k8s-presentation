@@ -17,6 +17,9 @@ spec:
         env:
         - name: BODY_FILENAME
           value: "templates/body.html"
+        volumeMounts:
+        - name: k8s-presentation-volume
+          mountPath: /opt/app/templates
         readinessProbe:
           httpGet:
             path: /
@@ -29,6 +32,20 @@ spec:
             port: 3000
           initialDelaySeconds: 5
           periodSeconds: 2
+      volumes:
+      - name: k8s-presentation-volume
+        configMap:
+          name: k8s-presentation
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-presentation
+data:
+  body.html: |
+    <div>
+      Config Map also rocks!
+    </div>
 ---
 apiVersion: v1
 kind: Service
