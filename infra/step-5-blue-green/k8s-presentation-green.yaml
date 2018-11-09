@@ -45,8 +45,8 @@ metadata:
   name: k8s-presentation-green
 data:
   body.html: |
-    <div style="background: #0f0; color: #fff">
-      COLOR = BLUE
+    <div style="background: #0f0; color: #000">
+      COLOR = GREEN
     </div>
 ---
 apiVersion: v1

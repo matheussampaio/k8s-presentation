@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: k8s-presentation-prod
-  color: green
+  name: k8s-presentation-stable-color
 spec:
   selector:
     app: k8s-presentation
+    color: green
   type: NodePort
   ports:
   - protocol: TCP
@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: k8s-presentation-both
+  name: k8s-presentation-any-color
 spec:
   selector:
     app: k8s-presentation

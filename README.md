@@ -3,12 +3,13 @@
 This is a small demo application to demonstrate Kubernetes.
 
 
-## `step-0-no-manifest`
-Initial branch, no manifests here.
-
-
 ## `step-1-basic-manifest`
 Simple manifest with `Deployment` and `Service`.
+
+Things to try:
+ - Delete a `Pod`
+ - Delete the `ReplicaSet`
+ - Access the website (Cluster IP + port `30001`)
 
 New concepts: 
  - `kubectl apply -f file.yaml`
