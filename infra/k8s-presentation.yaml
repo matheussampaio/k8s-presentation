@@ -17,6 +17,9 @@ spec:
         env:
         - name: BODY_FILENAME
           value: "templates/body.html"
+        envFrom:
+        - configMapRef:
+            name: k8s-presentation-envs
         volumeMounts:
         - name: k8s-presentation-volume
           mountPath: /opt/app/templates
@@ -48,6 +51,14 @@ data:
 
       Kubernetes does the job for us. :D
     </div>
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-presentation-envs
+data:
+  CONFIG_API_URL: "api-staging"
+  MOCK_AGGREGATION_API: "true"
 ---
 apiVersion: v1
 kind: Service
