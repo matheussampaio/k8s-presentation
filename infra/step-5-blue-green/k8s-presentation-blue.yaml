@@ -1,0 +1,65 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: k8s-presentation
+    color: blue
+  name: k8s-presentation-blue
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: k8s-presentation
+        color: blue
+    spec:
+      containers:
+      - image: matheussampaio/k8s-presentation:beta-2
+        name: k8s-presentation
+        env:
+        - name: BODY_FILENAME
+          value: "templates/body.html"
+        volumeMounts:
+        - name: k8s-presentation-volume
+          mountPath: /opt/app/templates
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 2
+      volumes:
+      - name: k8s-presentation-volume
+        configMap:
+          name: k8s-presentation-blue
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-presentation-blue
+data:
+  body.html: |
+    <div style="background: #00f; color: #fff">
+      COLOR = BLUE
+    </div>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-presentation-blue
+spec:
+  selector:
+    app: k8s-presentation
+    color: blue
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+    nodePort: 30001

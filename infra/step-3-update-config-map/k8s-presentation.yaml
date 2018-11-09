@@ -1,0 +1,63 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: k8s-presentation
+  name: k8s-presentation
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: k8s-presentation
+    spec:
+      containers:
+      - image: matheussampaio/k8s-presentation:beta-2
+        name: k8s-presentation
+        env:
+        - name: BODY_FILENAME
+          value: "templates/body.html"
+        volumeMounts:
+        - name: k8s-presentation-volume
+          mountPath: /opt/app/templates
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 2
+      volumes:
+      - name: k8s-presentation-volume
+        configMap:
+          name: k8s-presentation
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-presentation
+data:
+  body.html: |
+    <div>
+      Config Map also rocks!
+
+      Kubernetes does the job for us. :D
+    </div>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-presentation
+spec:
+  selector:
+    app: k8s-presentation
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000

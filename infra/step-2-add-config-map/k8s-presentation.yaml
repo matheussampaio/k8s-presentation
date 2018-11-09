@@ -36,3 +36,26 @@ spec:
       - name: k8s-presentation-volume
         configMap:
           name: k8s-presentation
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-presentation
+data:
+  body.html: |
+    <div>
+      Config Map also rocks!
+    </div>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-presentation
+spec:
+  selector:
+    app: k8s-presentation
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
