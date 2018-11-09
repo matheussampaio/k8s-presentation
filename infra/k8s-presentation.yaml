@@ -45,6 +45,8 @@ data:
   body.html: |
     <div>
       Config Map also rocks!
+
+      Kubernetes does the job for us. :D
     </div>
 ---
 apiVersion: v1
