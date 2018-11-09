@@ -10,7 +10,7 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=${NODE_ENV-development}
-      - BODY_FILENAME=${BODY_FILENAME-body.html}
+      - BODY_FILENAME=${BODY_FILENAME-templates/body.html}
     # Uncommet this line if you want to enable output colors
     tty: true
     volumes:
