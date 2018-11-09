@@ -1,0 +1,22 @@
+{
+  "name": "k8s-presentation",
+  "version": "1.0.0",
+  "description": "Small app to demonstrate Kubernetes",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "micro"
+  },
+  "keywords": [
+    "kubernetes",
+    "node",
+    "docker"
+  ],
+  "author": "Matheus Sampaio <matheus.sampaio@wizeline.com>",
+  "license": "MIT",
+  "dependencies": {
+    "micro": "^9.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}

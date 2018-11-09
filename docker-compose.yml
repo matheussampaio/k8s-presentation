@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+    image: matheussampaio/k8s-presentation:${TAG-latest}
+    command: npx nodemon -w src --exec "npm start"
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV-development}
+      - BODY_FILENAME=${BODY_FILENAME-body.html}
+    # Uncommet this line if you want to enable output colors
+    tty: true
+    volumes:
+      - ./:/opt/app/
+      - notused:/opt/app/node_modules
+
+volumes:
+  notused:

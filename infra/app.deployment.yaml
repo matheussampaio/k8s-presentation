@@ -1,0 +1,22 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: k8s-presentation
+  name: k8s-presentation
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: k8s-presentation
+    spec:
+      containers:
+      - image: matheussampaio/k8s-presentation:beta
+        name: k8s-presentation
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 2
